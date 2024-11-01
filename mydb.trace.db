@@ -351,3 +351,6 @@ Caused by: org.h2.jdbc.JdbcSQLInvalidAuthorizationSpecException: Wrong user name
 	at org.h2.message.DbException.getJdbcSQLException(DbException.java:522)
 	at org.h2.message.DbException.getJdbcSQLException(DbException.java:489)
 	... 50 more
+2024-11-01 14:14:48.716472+02:00 jdbc[13]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Syntax error in SQL statement "[*]TOPIC_VOLUNTEER"; expected "TRUNCATE"; SQL statement:
+TOPIC_VOLUNTEER [42001-224]

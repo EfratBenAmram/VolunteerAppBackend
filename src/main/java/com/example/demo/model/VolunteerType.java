@@ -1,6 +1,8 @@
 package com.example.demo.model;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
+import org.springframework.boot.autoconfigure.kafka.KafkaProperties;
+
 import java.util.HashSet;
 import java.util.Set;
 
@@ -11,6 +13,11 @@ public class VolunteerType {
     private Long volunteerTypeId;
 
     private String name;
+    private int minAge;
+    private int maxAge;
+
+    @Enumerated(EnumType.STRING)
+    private TopicVolunteer topicVolunteer;
 
     @JsonIgnore
     @OneToMany(mappedBy = "volunteerType")
@@ -53,4 +60,28 @@ public class VolunteerType {
         this.name = name;
     }
 
+
+    public void setMinAge(int minAge) {
+        this.minAge = minAge;
+    }
+
+    public void setMaxAge(int maxAge) {
+        this.maxAge = maxAge;
+    }
+
+    public int getMinAge() {
+        return minAge;
+    }
+
+    public int getMaxAge() {
+        return maxAge;
+    }
+
+    public TopicVolunteer getTopicVolunteer() {
+        return topicVolunteer;
+    }
+
+    public void setTopicVolunteer(TopicVolunteer topicVolunteer) {
+        this.topicVolunteer = topicVolunteer;
+    }
 }

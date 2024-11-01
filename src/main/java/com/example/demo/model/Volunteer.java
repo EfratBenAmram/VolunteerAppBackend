@@ -1,10 +1,8 @@
 package com.example.demo.model;
 import com.fasterxml.jackson.annotation.JsonIgnore;
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.Id;
-import jakarta.persistence.OneToMany;
+import jakarta.persistence.*;
 
+import java.time.LocalDate;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -17,11 +15,16 @@ public class Volunteer {
     private String name;
     private String email;
     private String password;
-    private String occupation;
-    private String sector;
-    private int age;
-    private String region;
-    private String experience;
+    private String phone;
+    private String role;
+    private String gender;
+    private LocalDate birth;
+    private boolean experience;
+    private boolean isPartOfGroup;
+    private int amountVolunteers;
+
+    @Enumerated(EnumType.STRING)
+    private Region region;
 
     @JsonIgnore
     @OneToMany(mappedBy = "volunteer")
@@ -71,43 +74,27 @@ public class Volunteer {
         this.password = password;
     }
 
-    public String getOccupation() {
-        return occupation;
+    public String getRole() {
+        return role;
     }
 
-    public void setOccupation(String occupation) {
-        this.occupation = occupation;
+    public void setRole(String role) {
+        this.role = role;
     }
 
-    public String getSector() {
-        return sector;
-    }
-
-    public void setSector(String sector) {
-        this.sector = sector;
-    }
-
-    public int getAge() {
-        return age;
-    }
-
-    public void setAge(int age) {
-        this.age = age;
-    }
-
-    public String getRegion() {
+    public Region getRegion() {
         return region;
     }
 
-    public void setRegion(String region) {
+    public void setRegion(Region region) {
         this.region = region;
     }
 
-    public String getExperience() {
+    public boolean getExperience() {
         return experience;
     }
 
-    public void setExperience(String experience) {
+    public void setExperience(boolean experience) {
         this.experience = experience;
     }
 
@@ -118,4 +105,50 @@ public class Volunteer {
     public void setVolunteerReview(Set<com.example.demo.model.VolunteerReview> volunteerReview) {
         VolunteerReview = volunteerReview;
     }
+
+    public String getPhone() {
+        return phone;
+    }
+
+    public void setPhone(String phone) {
+        this.phone = phone;
+    }
+
+    public LocalDate getBirth() {
+        return birth;
+    }
+
+    public void setBirth(LocalDate birth) {
+        this.birth = birth;
+    }
+
+    public String getGender() {
+        return gender;
+    }
+
+    public void setGender(String gender) {
+        this.gender = gender;
+    }
+
+    public boolean isPartOfGroup() {
+        return isPartOfGroup;
+    }
+
+    public boolean isExperience() {
+        return experience;
+    }
+
+    public int getAmountVolunteers() {
+        return amountVolunteers;
+    }
+
+    public void setAmountVolunteers(int amountVolunteers) {
+        this.amountVolunteers = amountVolunteers;
+    }
+
+    public void setPartOfGroup(boolean partOfGroup) {
+        isPartOfGroup = partOfGroup;
+    }
+
+
 }
