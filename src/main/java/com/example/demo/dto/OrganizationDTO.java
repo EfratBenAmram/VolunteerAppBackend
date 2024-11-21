@@ -6,13 +6,15 @@ import java.util.HashMap;
 import java.util.List;
 
 @Entity
-public class OrganizationDto extends User {
+public class Organization extends User {
     @Id
     @GeneratedValue
     private Long organizationId;
     private String orgGoals;
 
     private HashMap<String, String> recommendationPhones;
+    private byte[] image;
+
 
     @ElementCollection(targetClass = TopicVolunteer.class)
     @CollectionTable(name = "organization_topics", joinColumns = @JoinColumn(name = "organization_id"))
@@ -63,4 +65,11 @@ public class OrganizationDto extends User {
 //        VolunteerReview = volunteerReview;
 //    }
 
+    public byte[] getImage() {
+        return image;
+    }
+
+    public void setImage(byte[] image) {
+        this.image = image;
+    }
 }
