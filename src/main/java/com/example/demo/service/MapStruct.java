@@ -1,12 +1,9 @@
 package com.example.demo.service;
 
-
-import com.example.demo.dto.DoctorDto;
-import com.example.demo.dto.PrescriptionDto;
-import com.example.demo.dto.UserDto;
-import com.example.demo.model.Doctor;
-import com.example.demo.model.Prescription;
-import com.example.demo.model.User;
+import com.example.demo.dto.OrganizationDTO;
+import com.example.demo.dto.VolunteerDTO;
+import com.example.demo.model.Organization;
+import com.example.demo.model.Volunteer;
 import org.mapstruct.Mapper;
 
 import java.io.IOException;
@@ -18,64 +15,49 @@ import java.util.List;
 @Mapper(componentModel = "spring")
 public interface MapStruct {
 
-    List<UserDto> usersToDto(List<User> users);
-    List<PrescriptionDto> prescriptionsToDto(List<Prescription> prescriptions);
-    List<DoctorDto> doctorsToDto(List<Doctor> doctors);
+    List<VolunteerDTO> volunteersToDTO(List<Volunteer> volunteers);
+    List<OrganizationDTO> organizationsToDTO(List<Organization> organizations);
 
 
-   default UserDto UserToDto(User user) throws IOException {
-       UserDto userDto=new UserDto();
-       userDto.setId(user.getId());
-       userDto.setName(user.getName());
-       userDto.setEmail(user.getEmail());
-       userDto.setPassword(user.getPassword());
-       userDto.setB_day(user.getB_day());
-       userDto.setTz(user.getTz());
-       userDto.setAppointments(user.getAppointments());
-       userDto.setPhoneNumber(user.getPhoneNumber());
-       userDto.setImagePropile(user.getImagePropile());
-       userDto.setPrescriptionList(user.getPrescriptionList());
-       userDto.setResponsesList(user.getResponsesList());
-       Path file= Paths.get(user.getImagePropile());
-       userDto.setImage(Files.readAllBytes(file));
-       return userDto;
+   default VolunteerDTO VolunteerToDTO(Volunteer volunteer) throws IOException {
+       VolunteerDTO volunteerDTO=new VolunteerDTO();
+       volunteerDTO.setEmail(volunteer.getEmail());
+       volunteerDTO.setName(volunteer.getName());
+       volunteerDTO.setPassword(volunteer.getPassword());
+       volunteerDTO.setPhone(volunteer.getPhone());
+       volunteerDTO.setRegion(volunteer.getRegion());
+       volunteerDTO.setVolunteerId(volunteer.getVolunteerId());
+       volunteerDTO.setRole(volunteer.getRole());
+       volunteerDTO.setEmail(volunteer.getEmail());
+       volunteerDTO.setPassword(volunteer.getPassword());
+       volunteerDTO.setGender(volunteer.getGender());
+       volunteerDTO.setBirth(volunteer.getBirth());
+       volunteerDTO.setExperience(volunteer.getExperience());
+       volunteerDTO.setPartOfGroup(volunteer.isPartOfGroup());
+       volunteerDTO.setAmountVolunteers(volunteer.getAmountVolunteers());
+       volunteerDTO.setVolunteerReview(volunteer.getVolunteerReview());
+       volunteerDTO.setImageVol(volunteer.getImageVol());
+       Path file= Paths.get(volunteer.getImageVol());
+       volunteerDTO.setImage(Files.readAllBytes(file));
+       return volunteerDTO;
     }
 
-    default DoctorDto DoctorToDto(Doctor doctor) throws IOException{
-       DoctorDto doctorDto = new DoctorDto();
-       doctorDto.setId(doctor.getId());
-       doctorDto.setName(doctor.getName());
-       doctorDto.setEmail(doctor.getEmail());
-       doctorDto.setClinicPhone(doctor.getClinicPhone());
-       doctorDto.setClinicCity(doctor.getClinicCity());
-       doctorDto.setClinicStreet(doctor.getClinicStreet());
-       doctorDto.setYearsOfExperience(doctor.getYearsOfExperience());
-       doctorDto.setPlaceOfStudy(doctor.getPlaceOfStudy());
-       doctorDto.setLicensePlate(doctor.getLicensePlate());
-       doctorDto.setImageDoctor(doctor.getImageDoctor());
-       doctorDto.setGender(doctor.getGender());
-       doctorDto.setAge(doctor.getAge());
-       doctorDto.setAppointments(doctor.getAppointments());
-       doctorDto.setCategory(doctor.getCategory());
-       doctorDto.setPrescriptions(doctor.getPrescriptions());
-       doctorDto.setResponses(doctor.getResponses());
-       doctorDto.setAppointmentStartAndDayList(doctor.getAppointmentStartAndDayList());
-       Path file = Paths.get(doctor.getImageDoctor());
-       doctorDto.setImage(Files.readAllBytes(file));
-       return doctorDto;
+    default OrganizationDTO OrganizationToDTO(Organization organization) throws IOException{
+       OrganizationDTO organizationDTO = new OrganizationDTO();
+       organizationDTO.setOrganizationId(organization.getOrganizationId());
+       organizationDTO.setEmail(organization.getEmail());
+       organizationDTO.setName(organization.getName());
+       organizationDTO.setPassword(organization.getPassword());
+       organizationDTO.setPhone(organization.getPhone());
+       organizationDTO.setRegion(organization.getRegion());
+       organizationDTO.setOrgGoals(organization.getOrgGoals());
+       organizationDTO.setRecommendationPhones(organization.getRecommendationPhones());
+       organizationDTO.setTopicVolunteers(organization.getTopicVolunteers());
+       organizationDTO.setImageOrg(organization.getImageOrg());
+       Path file = Paths.get(organization.getImageOrg());
+       organizationDTO.setImage(Files.readAllBytes(file));
+       return organizationDTO;
     }
-
-    default PrescriptionDto PrescriptionToDto(Prescription prescription)throws IOException{
-       PrescriptionDto presciptionDto=new PrescriptionDto();
-       presciptionDto.setId(prescription.getId());
-       presciptionDto.setId_doctor(prescription.getDoctor());
-       presciptionDto.setId_user(prescription.getId_user());
-       presciptionDto.setPrescription(prescription.getPrescription());
-       Path file=Paths.get(prescription.getPrescription());
-       presciptionDto.setPdfPrescription(Files.readAllBytes(file));
-       return presciptionDto;
-    }
-
 
 
 }

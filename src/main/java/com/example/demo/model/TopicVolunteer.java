@@ -1,5 +1,4 @@
 package com.example.demo.model;
-
 public enum TopicVolunteer {
     ELDERLY_CARE,// עזרה לקשישים
     FOOD_DISTRIBUTION,// חלוקת מזון
@@ -12,3 +11,4 @@ public enum TopicVolunteer {
     COMMUNITY_ACTIVITY,// פעילות קהילתית
     EDUCATIONAL_SUPPORT// עזרה בתחום החינוך
 }
+

@@ -14,7 +14,7 @@ public class VolunteerReview {
     private Organization organization;
 
     @ManyToOne
-    private Volunteer volunteer;
+    private com.example.demo.model.Volunteer volunteer;
 
     private String comment;
     private int likes;
@@ -35,11 +35,11 @@ public class VolunteerReview {
         this.organization = organization;
     }
 
-    public Volunteer getVolunteer() {
+    public com.example.demo.model.Volunteer getVolunteer() {
         return volunteer;
     }
 
-    public void setVolunteer(Volunteer volunteer) {
+    public void setVolunteer(com.example.demo.model.Volunteer volunteer) {
         this.volunteer = volunteer;
     }
 

@@ -1,25 +1,15 @@
-package com.example.demo.model;
-
-import jakarta.persistence.*;
+package com.example.demo.dto;
+import com.example.demo.model.*;
 
 import java.util.HashMap;
 import java.util.List;
 
-@Entity
-public class Organization extends User {
-    @Id
-    @GeneratedValue
+public class OrganizationDTO extends User {
     private Long organizationId;
     private String orgGoals;
-
     private HashMap<String, String> recommendationPhones;
     private byte[] image;
-
-
-    @ElementCollection(targetClass = TopicVolunteer.class)
-    @CollectionTable(name = "organization_topics", joinColumns = @JoinColumn(name = "organization_id"))
-    @Column(name = "topic_volunteer")
-    @Enumerated(EnumType.STRING)
+    private String imageOrg;
     private List<TopicVolunteer> topicVolunteers;
 
     public Long getOrganizationId() {
@@ -71,5 +61,13 @@ public class Organization extends User {
 
     public void setImage(byte[] image) {
         this.image = image;
+    }
+
+    public String getImageOrg() {
+        return imageOrg;
+    }
+
+    public void setImageOrg(String imageOrg) {
+        this.imageOrg = imageOrg;
     }
 }

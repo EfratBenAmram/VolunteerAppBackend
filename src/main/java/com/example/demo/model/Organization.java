@@ -6,11 +6,12 @@ import java.util.HashMap;
 import java.util.List;
 
 @Entity
-public class OrganizationDto extends User {
+public class Organization extends User {
     @Id
     @GeneratedValue
     private Long organizationId;
     private String orgGoals;
+    private String imageOrg;
 
     private HashMap<String, String> recommendationPhones;
 
@@ -22,6 +23,14 @@ public class OrganizationDto extends User {
 
     public Long getOrganizationId() {
         return organizationId;
+    }
+
+    public String getImageOrg() {
+        return imageOrg;
+    }
+
+    public void setImageOrg(String imageOrg) {
+        this.imageOrg = imageOrg;
     }
 
     public void setOrganizationId(Long organizationId) {

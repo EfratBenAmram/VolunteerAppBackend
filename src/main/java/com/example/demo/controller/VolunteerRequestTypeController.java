@@ -1,5 +1,6 @@
 package com.example.demo.controller;
 
+import com.example.demo.model.VolunteerRequest;
 import com.example.demo.model.VolunteerRequestType;
 import com.example.demo.service.VolunteerRequestTypeRepository;
 import org.springframework.http.HttpStatus;
@@ -12,7 +13,7 @@ import java.util.List;
 @RequestMapping("api/volunteerRequestType")
 @CrossOrigin
 public class VolunteerRequestTypeController {
-    private VolunteerRequestTypeRepository volunteerRequestTypeRepository;
+    VolunteerRequestTypeRepository volunteerRequestTypeRepository;
 
     public VolunteerRequestTypeController(VolunteerRequestTypeRepository volunteerRequestTypeRepository) {
         this.volunteerRequestTypeRepository = volunteerRequestTypeRepository;
