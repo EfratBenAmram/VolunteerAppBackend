@@ -24,17 +24,17 @@ public class Volunteer extends User {
     @OneToMany(mappedBy = "volunteer")
     private Set<VolunteerReview> VolunteerReview = new HashSet<>();
 
-//    @JsonIgnore
-//    @OneToMany(mappedBy = "volunteer")
-//    private Set<VolunteerRequest> volunteerRequests = new HashSet<>();
-//
-//    public Set<VolunteerRequest> getVolunteerRequests() {
-//        return volunteerRequests;
-//    }
-//
-//    public void setVolunteerRequests(Set<VolunteerRequest> volunteerRequests) {
-//        this.volunteerRequests = volunteerRequests;
-//    }
+    @JsonIgnore
+    @OneToMany(mappedBy = "volunteer")
+    private Set<VolunteerRequest> volunteerRequests = new HashSet<>();
+
+    public Set<VolunteerRequest> getVolunteerRequests() {
+        return volunteerRequests;
+    }
+
+    public void setVolunteerRequests(Set<VolunteerRequest> volunteerRequests) {
+        this.volunteerRequests = volunteerRequests;
+    }
 
     public Long getVolunteerId() {
         return volunteerId;

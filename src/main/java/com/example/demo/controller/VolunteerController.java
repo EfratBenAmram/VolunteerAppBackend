@@ -74,8 +74,6 @@ public class VolunteerController {
         for (Volunteer u : volunteers) {
             if (volunteer.getPassword().equals(u.getPassword()) && volunteer.getEmail().equals(u.getEmail()))
                 return new ResponseEntity<>(u, HttpStatus.OK);
-            else
-                return new ResponseEntity<>(null, HttpStatus.UNAUTHORIZED);
         }
         return new ResponseEntity<>(null, HttpStatus.NOT_FOUND);
     }
@@ -84,7 +82,7 @@ public class VolunteerController {
     public ResponseEntity<Volunteer> signUp(@RequestBody Volunteer volunteer) {
         List<Volunteer> volunteers = volunteerRepository.findAll();
         for (Volunteer u : volunteers) {
-            if (volunteer.getName().equals(u.getName())) {
+            if (volunteer.getEmail().equals(u.getEmail())) {
                 return new ResponseEntity<>(null, HttpStatus.CONFLICT);
             }
         }

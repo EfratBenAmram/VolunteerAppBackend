@@ -76,8 +76,6 @@ public class OrganizationController {
         for (Organization u : organizations) {
             if (organization.getPassword().equals(u.getPassword()) && organization.getEmail().equals(u.getEmail()))
                 return new ResponseEntity<>(u, HttpStatus.OK);
-            else
-                return new ResponseEntity<>(null, HttpStatus.UNAUTHORIZED);
         }
         return new ResponseEntity<>(null, HttpStatus.NOT_FOUND);
     }
@@ -86,7 +84,7 @@ public class OrganizationController {
     public ResponseEntity<Organization> signUp(@RequestBody Organization organization) {
         List<Organization> organizations = organizationRepository.findAll();
         for (Organization u : organizations) {
-            if (organization.getName().equals(u.getName())) {
+            if (organization.getEmail().equals(u.getEmail())) {
                 return new ResponseEntity<>(null, HttpStatus.CONFLICT);
             }
         }

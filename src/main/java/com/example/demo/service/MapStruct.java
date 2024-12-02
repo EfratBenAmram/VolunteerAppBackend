@@ -37,6 +37,7 @@ public interface MapStruct {
        volunteerDTO.setAmountVolunteers(volunteer.getAmountVolunteers());
        volunteerDTO.setVolunteerReview(volunteer.getVolunteerReview());
        volunteerDTO.setImageVol(volunteer.getImageVol());
+       volunteerDTO.setVolunteerRequests(volunteer.getVolunteerRequests());
        Path file= Paths.get(volunteer.getImageVol());
        volunteerDTO.setImage(Files.readAllBytes(file));
        return volunteerDTO;

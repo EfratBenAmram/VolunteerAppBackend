@@ -1,6 +1,7 @@
 package com.example.demo.dto;
 
 import com.example.demo.model.User;
+import com.example.demo.model.VolunteerRequest;
 import com.example.demo.model.VolunteerReview;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.OneToMany;
@@ -23,17 +24,17 @@ public class VolunteerDTO extends User {
 
     private Set<VolunteerReview> VolunteerReview = new HashSet<>();
 
-//    @JsonIgnore
-//    @OneToMany(mappedBy = "volunteer")
-//    private Set<VolunteerRequest> volunteerRequests = new HashSet<>();
-//
-//    public Set<VolunteerRequest> getVolunteerRequests() {
-//        return volunteerRequests;
-//    }
-//
-//    public void setVolunteerRequests(Set<VolunteerRequest> volunteerRequests) {
-//        this.volunteerRequests = volunteerRequests;
-//    }
+    @JsonIgnore
+    @OneToMany(mappedBy = "volunteer")
+    private Set<VolunteerRequest> volunteerRequests = new HashSet<>();
+
+    public Set<VolunteerRequest> getVolunteerRequests() {
+        return volunteerRequests;
+    }
+
+    public void setVolunteerRequests(Set<VolunteerRequest> volunteerRequests) {
+        this.volunteerRequests = volunteerRequests;
+    }
 
     public byte[] getImage() {
         return image;

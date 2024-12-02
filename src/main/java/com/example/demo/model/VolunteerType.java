@@ -1,4 +1,5 @@
 package com.example.demo.model;
+
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import org.springframework.boot.autoconfigure.kafka.KafkaProperties;
@@ -20,29 +21,8 @@ public class VolunteerType {
     private TopicVolunteer topicVolunteer;
 
     @JsonIgnore
-    @OneToMany(mappedBy = "volunteerType")
-    private Set<VolunteerRequestType> volunteerRequestTypes = new HashSet<>();
-
-    /*
-    @JsonIgnore
-    @OneToMany(mappedBy = "volunteerType")
-    private Set<VolunteerInvitation> volunteerInvitation = new HashSet<>();
-
-    public Set<VolunteerInvitation> getVolunteerInvitation() {
-        return volunteerInvitation;
-    }
-
-    public void setVolunteerInvitation(Set<VolunteerInvitation> volunteerInvitation) {
-        this.volunteerInvitation = volunteerInvitation;
-    }
-    */
-    public Set<VolunteerRequestType> getVolunteerRequestTypes() {
-        return volunteerRequestTypes;
-    }
-
-    public void setVolunteerRequestTypes(Set<VolunteerRequestType> volunteerRequestTypes) {
-        this.volunteerRequestTypes = volunteerRequestTypes;
-    }
+    @ManyToMany(mappedBy = "volunteerTypes")  // קשר דו-כיווני
+    private Set<VolunteerRequest> volunteerRequests = new HashSet<>();  // אתחול רשימה
 
     public Long getVolunteerTypeId() {
         return volunteerTypeId;
@@ -60,21 +40,20 @@ public class VolunteerType {
         this.name = name;
     }
 
+    public int getMinAge() {
+        return minAge;
+    }
 
     public void setMinAge(int minAge) {
         this.minAge = minAge;
     }
 
-    public void setMaxAge(int maxAge) {
-        this.maxAge = maxAge;
-    }
-
-    public int getMinAge() {
-        return minAge;
-    }
-
     public int getMaxAge() {
         return maxAge;
+    }
+
+    public void setMaxAge(int maxAge) {
+        this.maxAge = maxAge;
     }
 
     public TopicVolunteer getTopicVolunteer() {
@@ -84,4 +63,26 @@ public class VolunteerType {
     public void setTopicVolunteer(TopicVolunteer topicVolunteer) {
         this.topicVolunteer = topicVolunteer;
     }
+
+    public Set<VolunteerRequest> getVolunteerRequests() {
+        return volunteerRequests;
+    }
+
+    public void setVolunteerRequests(Set<VolunteerRequest> volunteerRequests) {
+        this.volunteerRequests = volunteerRequests;
+    }
+
+    /*
+    @JsonIgnore
+    @OneToMany(mappedBy = "volunteerType")
+    private Set<VolunteerInvitation> volunteerInvitation = new HashSet<>();
+
+    public Set<VolunteerInvitation> getVolunteerInvitation() {
+        return volunteerInvitation;
+    }
+
+    public void setVolunteerInvitation(Set<VolunteerInvitation> volunteerInvitation) {
+        this.volunteerInvitation = volunteerInvitation;
+    }
+    */
 }

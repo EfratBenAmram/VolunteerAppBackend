@@ -1,9 +1,12 @@
 package com.example.demo.model;
+import com.fasterxml.jackson.annotation.JsonIdentityInfo;
+import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.Id;
 import jakarta.persistence.ManyToOne;
 
+@JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property = "reviewId")
 @Entity
 public class VolunteerReview {
     @Id
@@ -14,7 +17,7 @@ public class VolunteerReview {
     private Organization organization;
 
     @ManyToOne
-    private com.example.demo.model.Volunteer volunteer;
+    private Volunteer volunteer;
 
     private String comment;
     private int likes;

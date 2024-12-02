@@ -20,16 +20,15 @@ public class VolunteerRequest {
     private AvailableTime availableTime;
     private LocalDate localDate;
 
-    @JsonIgnore
-    @OneToMany(mappedBy = "volunteerRequest", cascade = CascadeType.ALL)
-    private Set<VolunteerRequestType> volunteerRequestTypes = new HashSet<>();
+    @ManyToMany(cascade = CascadeType.MERGE)
+    private Set<VolunteerType> volunteerTypes;
 
-    public Set<VolunteerRequestType> getVolunteerRequestTypes() {
-        return volunteerRequestTypes;
+    public Set<VolunteerType> getVolunteerTypes() {
+        return volunteerTypes;
     }
 
-    public void setVolunteerRequestTypes(Set<VolunteerRequestType> volunteerRequestTypes) {
-        this.volunteerRequestTypes = volunteerRequestTypes;
+    public void setVolunteerTypes(Set<VolunteerType> volunteerTypes) {
+        this.volunteerTypes = volunteerTypes;
     }
 
     public String getComments() {
