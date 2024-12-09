@@ -1,8 +1,7 @@
 package com.example.demo.model;
+
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
-import org.springframework.boot.autoconfigure.kafka.KafkaProperties;
-
 import java.util.HashSet;
 import java.util.Set;
 
@@ -16,33 +15,9 @@ public class VolunteerType {
     private int minAge;
     private int maxAge;
 
-    @Enumerated(EnumType.STRING)
-    private TopicVolunteer topicVolunteer;
-
     @JsonIgnore
-    @OneToMany(mappedBy = "volunteerType")
-    private Set<VolunteerRequestType> volunteerRequestTypes = new HashSet<>();
-
-    /*
-    @JsonIgnore
-    @OneToMany(mappedBy = "volunteerType")
-    private Set<VolunteerInvitation> volunteerInvitation = new HashSet<>();
-
-    public Set<VolunteerInvitation> getVolunteerInvitation() {
-        return volunteerInvitation;
-    }
-
-    public void setVolunteerInvitation(Set<VolunteerInvitation> volunteerInvitation) {
-        this.volunteerInvitation = volunteerInvitation;
-    }
-    */
-    public Set<VolunteerRequestType> getVolunteerRequestTypes() {
-        return volunteerRequestTypes;
-    }
-
-    public void setVolunteerRequestTypes(Set<VolunteerRequestType> volunteerRequestTypes) {
-        this.volunteerRequestTypes = volunteerRequestTypes;
-    }
+    @ManyToMany(mappedBy = "volunteerTypes")
+    private Set<VolunteerRequest> volunteerRequests = new HashSet<>();
 
     public Long getVolunteerTypeId() {
         return volunteerTypeId;
@@ -60,28 +35,42 @@ public class VolunteerType {
         this.name = name;
     }
 
+    public int getMinAge() {
+        return minAge;
+    }
 
     public void setMinAge(int minAge) {
         this.minAge = minAge;
-    }
-
-    public void setMaxAge(int maxAge) {
-        this.maxAge = maxAge;
-    }
-
-    public int getMinAge() {
-        return minAge;
     }
 
     public int getMaxAge() {
         return maxAge;
     }
 
-    public TopicVolunteer getTopicVolunteer() {
-        return topicVolunteer;
+    public void setMaxAge(int maxAge) {
+        this.maxAge = maxAge;
     }
 
-    public void setTopicVolunteer(TopicVolunteer topicVolunteer) {
-        this.topicVolunteer = topicVolunteer;
+
+    public Set<VolunteerRequest> getVolunteerRequests() {
+        return volunteerRequests;
     }
+
+    public void setVolunteerRequests(Set<VolunteerRequest> volunteerRequests) {
+        this.volunteerRequests = volunteerRequests;
+    }
+
+    /*
+    @JsonIgnore
+    @OneToMany(mappedBy = "volunteerType")
+    private Set<VolunteerInvitation> volunteerInvitation = new HashSet<>();
+
+    public Set<VolunteerInvitation> getVolunteerInvitation() {
+        return volunteerInvitation;
+    }
+
+    public void setVolunteerInvitation(Set<VolunteerInvitation> volunteerInvitation) {
+        this.volunteerInvitation = volunteerInvitation;
+    }
+    */
 }

@@ -21,6 +21,7 @@ public class VolunteerInvitationController {
     public ResponseEntity<List<VolunteerInvitation>> getVolunteerInvitation() {
         return new ResponseEntity<>(volunteerInvitationRepository.findAll(), HttpStatus.OK);
     }
+
     @GetMapping("/volunteerInvitationById/{id}")
     public ResponseEntity<VolunteerInvitation> getVolunteerInvitationByID(@PathVariable Long id){
         VolunteerInvitation volunteerInvitation = volunteerInvitationRepository.findById(id).orElse(null);
@@ -40,7 +41,7 @@ public class VolunteerInvitationController {
         VolunteerInvitation newVolunteerInvitation = volunteerInvitationRepository.findById(id).orElse(null);
         if(newVolunteerInvitation ==null)
             return new ResponseEntity<>(null, HttpStatus.NOT_FOUND);
-        if(volunteerInvitation.getInvitationId() != id){
+        if(!volunteerInvitation.getInvitationId().equals(id)){
             return new ResponseEntity<>(volunteerInvitation, HttpStatus.CONFLICT);
         }
         newVolunteerInvitation =volunteerInvitationRepository.save(volunteerInvitation);

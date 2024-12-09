@@ -1,13 +1,13 @@
 package com.example.demo.model;
-import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonIdentityInfo;
+import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 import jakarta.persistence.*;
-
 import java.time.LocalDate;
-import java.util.HashSet;
 import java.util.Set;
 
-
 @Entity
+@JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property = "requestId")
 public class VolunteerRequest {
     @Id
     @GeneratedValue
@@ -20,17 +20,44 @@ public class VolunteerRequest {
     @Enumerated(EnumType.STRING)
     private AvailableTime availableTime;
     private LocalDate localDate;
+    private LocalDate availableDate;
 
-    @JsonIgnore
-    @OneToMany(mappedBy = "volunteerRequest", cascade = CascadeType.ALL)
-    private Set<VolunteerRequestType> volunteerRequestTypes = new HashSet<>();
-
-    public Set<VolunteerRequestType> getVolunteerRequestTypes() {
-        return volunteerRequestTypes;
+    public LocalDate getAvailableDate() {
+        return availableDate;
     }
 
-    public void setVolunteerRequestTypes(Set<VolunteerRequestType> volunteerRequestTypes) {
-        this.volunteerRequestTypes = volunteerRequestTypes;
+    public void setAvailableDate(LocalDate availableDate) {
+        this.availableDate = availableDate;
+    }
+
+    @ManyToMany(cascade = CascadeType.MERGE)
+    private Set<VolunteerType> volunteerTypes;
+
+    private double positionX;
+    private double positionY;
+
+    public double getPositionX() {
+        return positionX;
+    }
+
+    public void setPositionX(double positionX) {
+        this.positionX = positionX;
+    }
+
+    public double getPositionY() {
+        return positionY;
+    }
+
+    public void setPositionY(double positionY) {
+        this.positionY = positionY;
+    }
+
+    public Set<VolunteerType> getVolunteerTypes() {
+        return volunteerTypes;
+    }
+
+    public void setVolunteerTypes(Set<VolunteerType> volunteerTypes) {
+        this.volunteerTypes = volunteerTypes;
     }
 
     public String getComments() {
@@ -57,6 +84,7 @@ public class VolunteerRequest {
         this.availableTime = availableTime;
     }
 
+
     public Long getRequestId() {
         return requestId;
     }
@@ -76,7 +104,8 @@ public class VolunteerRequest {
     public enum AvailableTime {
         MORNING,
         AFTERNOON,
-        EVENING;
+        EVENING,
+        ALL;
     }
 
 }

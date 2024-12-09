@@ -1,10 +1,13 @@
 package com.example.demo.model;
+import com.fasterxml.jackson.annotation.JsonIdentityInfo;
+import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.Id;
 import jakarta.persistence.ManyToOne;
 
 @Entity
+@JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property = "reviewId")
 public class VolunteerReview {
     @Id
     @GeneratedValue
@@ -35,11 +38,11 @@ public class VolunteerReview {
         this.organization = organization;
     }
 
-    public Volunteer getVolunteer() {
+    public com.example.demo.model.Volunteer getVolunteer() {
         return volunteer;
     }
 
-    public void setVolunteer(Volunteer volunteer) {
+    public void setVolunteer(com.example.demo.model.Volunteer volunteer) {
         this.volunteer = volunteer;
     }
 

@@ -3,6 +3,7 @@ package com.example.demo.model;
 import jakarta.persistence.*;
 
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.time.LocalTime;
 
 @Entity
@@ -18,9 +19,9 @@ public class VolunteerInvitation {
     @ManyToOne
     private Organization organization;
 
-    private LocalDate invitationDate;
-    private LocalTime responseTime;
-    private LocalTime requestTime;
+    private LocalDateTime invitationDate;
+    private LocalDateTime responseTime;
+    private LocalDateTime requestTime;
 
     private String address;//כתובת בה נערכת ההתנדבות
     private String activityDetails;//מידע נוסף על הפעילות
@@ -39,27 +40,27 @@ public class VolunteerInvitation {
         COMPLETED
     }
 
-    public LocalDate getInvitationDate() {
+    public LocalDateTime getInvitationDate() {
         return invitationDate;
     }
 
-    public void setInvitationDate(LocalDate invitationDate) {
+    public void setInvitationDate(LocalDateTime invitationDate) {
         this.invitationDate = invitationDate;
     }
 
-    public LocalTime getResponseTime() {
+    public LocalDateTime getResponseTime() {
         return responseTime;
     }
 
-    public void setResponseTime(LocalTime responseTime) {
+    public void setResponseTime(LocalDateTime responseTime) {
         this.responseTime = responseTime;
     }
 
-    public LocalTime getRequestTime() {
+    public LocalDateTime getRequestTime() {
         return requestTime;
     }
 
-    public void setRequestTime(LocalTime requestTime) {
+    public void setRequestTime(LocalDateTime requestTime) {
         this.requestTime = requestTime;
     }
 

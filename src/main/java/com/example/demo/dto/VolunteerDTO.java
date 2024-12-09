@@ -1,30 +1,28 @@
-package com.example.demo.model;
-import com.fasterxml.jackson.annotation.JsonIdentityInfo;
+package com.example.demo.dto;
+
+import com.example.demo.model.User;
+import com.example.demo.model.VolunteerRequest;
+import com.example.demo.model.VolunteerReview;
 import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.fasterxml.jackson.annotation.ObjectIdGenerators;
-import jakarta.persistence.*;
+import jakarta.persistence.OneToMany;
+
 import java.time.LocalDate;
 import java.util.HashSet;
 import java.util.Set;
 
-@Entity
-@JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property = "volunteerId")
-public class Volunteer extends User {
-    @Id
-    @GeneratedValue
+public class VolunteerDTO extends User {
     private Long volunteerId;
-
     private String role;
     private String gender;
     private LocalDate birth;
     private boolean experience;
     private int amountVolunteers;
     private String imageVol;
+    private byte[] image;
 
-    @JsonIgnore
-    @OneToMany(mappedBy = "volunteer")
     private Set<VolunteerReview> VolunteerReview = new HashSet<>();
 
+    @JsonIgnore
     @OneToMany(mappedBy = "volunteer")
     private Set<VolunteerRequest> volunteerRequests = new HashSet<>();
 
@@ -34,6 +32,14 @@ public class Volunteer extends User {
 
     public void setVolunteerRequests(Set<VolunteerRequest> volunteerRequests) {
         this.volunteerRequests = volunteerRequests;
+    }
+
+    public byte[] getImage() {
+        return image;
+    }
+
+    public void setImage(byte[] image) {
+        this.image = image;
     }
 
     public Long getVolunteerId() {
@@ -60,11 +66,11 @@ public class Volunteer extends User {
         this.experience = experience;
     }
 
-    public Set<VolunteerReview> getVolunteerReview() {
+    public Set<com.example.demo.model.VolunteerReview> getVolunteerReview() {
         return VolunteerReview;
     }
 
-    public void setVolunteerReview(Set<VolunteerReview> volunteerReview) {
+    public void setVolunteerReview(Set<com.example.demo.model.VolunteerReview> volunteerReview) {
         VolunteerReview = volunteerReview;
     }
 
@@ -103,4 +109,5 @@ public class Volunteer extends User {
     public void setImageVol(String imageVol) {
         this.imageVol = imageVol;
     }
+
 }
