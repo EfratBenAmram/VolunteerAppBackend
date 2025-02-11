@@ -1,4 +1,5 @@
 package com.example.demo.model;
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonIdentityInfo;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.ObjectIdGenerators;
@@ -7,15 +8,16 @@ import java.time.LocalDate;
 import java.util.Set;
 
 @Entity
-@JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property = "requestId")
 public class VolunteerRequest {
     @Id
     @GeneratedValue
     private Long requestId;
 
     @ManyToOne
+    @JsonBackReference
     private Volunteer volunteer;
     private String comments;
+    private boolean invitationInd;
 
     @Enumerated(EnumType.STRING)
     private AvailableTime availableTime;
@@ -32,25 +34,6 @@ public class VolunteerRequest {
 
     @ManyToMany(cascade = CascadeType.MERGE)
     private Set<VolunteerType> volunteerTypes;
-
-    private double positionX;
-    private double positionY;
-
-    public double getPositionX() {
-        return positionX;
-    }
-
-    public void setPositionX(double positionX) {
-        this.positionX = positionX;
-    }
-
-    public double getPositionY() {
-        return positionY;
-    }
-
-    public void setPositionY(double positionY) {
-        this.positionY = positionY;
-    }
 
     public Set<VolunteerType> getVolunteerTypes() {
         return volunteerTypes;
@@ -101,11 +84,17 @@ public class VolunteerRequest {
         this.volunteer = volunteer;
     }
 
+    public boolean isInvitationInd() {
+        return invitationInd;
+    }
+
+    public void setInvitationInd(boolean invitationInd) {
+        this.invitationInd = invitationInd;
+    }
     public enum AvailableTime {
         MORNING,
         AFTERNOON,
         EVENING,
         ALL;
     }
-
 }

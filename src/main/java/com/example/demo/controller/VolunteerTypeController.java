@@ -12,47 +12,75 @@ import java.util.List;
 @RequestMapping("api/volunteerType")
 @CrossOrigin
 public class VolunteerTypeController {
-    private VolunteerTypeRepository volunteerTypeRepository;
+    private final VolunteerTypeRepository volunteerTypeRepository;
 
     public VolunteerTypeController(VolunteerTypeRepository volunteerTypeRepository) {
         this.volunteerTypeRepository = volunteerTypeRepository;
     }
+
     @GetMapping("/volunteerType")
     public ResponseEntity<List<VolunteerType>> getVolunteerType() {
-        return new ResponseEntity<>(volunteerTypeRepository.findAll(), HttpStatus.OK);
+        try {
+            List<VolunteerType> volunteerTypes = volunteerTypeRepository.findAll();
+            return new ResponseEntity<>(volunteerTypes, HttpStatus.OK);
+        } catch (Exception e) {
+            return new ResponseEntity<>(null, HttpStatus.INTERNAL_SERVER_ERROR);
+        }
     }
+
     @GetMapping("/volunteerTypeById/{id}")
-    public ResponseEntity<VolunteerType> getVolunteerTypeByID(@PathVariable Long id){
-        VolunteerType volunteerType = volunteerTypeRepository.findById(id).orElse(null);
-        if(volunteerType == null)
-            return new ResponseEntity<>(null, HttpStatus.NOT_FOUND);
-        return new ResponseEntity<>(volunteerType, HttpStatus.OK);
+    public ResponseEntity<VolunteerType> getVolunteerTypeByID(@PathVariable Long id) {
+        try {
+            VolunteerType volunteerType = volunteerTypeRepository.findById(id).orElse(null);
+            if (volunteerType == null) {
+                return new ResponseEntity<>(null, HttpStatus.NOT_FOUND);
+            }
+            return new ResponseEntity<>(volunteerType, HttpStatus.OK);
+        } catch (Exception e) {
+            return new ResponseEntity<>(null, HttpStatus.INTERNAL_SERVER_ERROR);
+        }
     }
 
     @PostMapping("/addVolunteerType")
     public ResponseEntity<VolunteerType> addVolunteerType(@RequestBody VolunteerType volunteerType) {
-        VolunteerType newVolunteerType = volunteerTypeRepository.save(volunteerType);
-        return new ResponseEntity<>(newVolunteerType, HttpStatus.CREATED);
+        try {
+            VolunteerType newVolunteerType = volunteerTypeRepository.save(volunteerType);
+            return new ResponseEntity<>(newVolunteerType, HttpStatus.CREATED);
+        } catch (Exception e) {
+            return new ResponseEntity<>(null, HttpStatus.INTERNAL_SERVER_ERROR);
+        }
     }
 
     @PutMapping("/updateVolunteerType/{id}")
-    public ResponseEntity<VolunteerType> updateVolunteerType( @PathVariable Long id,@RequestBody VolunteerType volunteerType) {
-        VolunteerType newVolunteerType = volunteerTypeRepository.findById(id).orElse(null);
-        if(newVolunteerType ==null)
-            return new ResponseEntity<>(null, HttpStatus.NOT_FOUND);
-        if(volunteerType.getVolunteerTypeId() != id){
-            return new ResponseEntity<>(volunteerType, HttpStatus.CONFLICT);
+    public ResponseEntity<VolunteerType> updateVolunteerType(@PathVariable Long id, @RequestBody VolunteerType volunteerType) {
+        try {
+            VolunteerType existingVolunteerType = volunteerTypeRepository.findById(id).orElse(null);
+            if (existingVolunteerType == null) {
+                return new ResponseEntity<>(null, HttpStatus.NOT_FOUND);
+            }
+
+            if (volunteerType.getVolunteerTypeId() != id) {
+                return new ResponseEntity<>(volunteerType, HttpStatus.CONFLICT);
+            }
+
+            VolunteerType updatedVolunteerType = volunteerTypeRepository.save(volunteerType);
+            return new ResponseEntity<>(updatedVolunteerType, HttpStatus.CREATED);
+        } catch (Exception e) {
+            return new ResponseEntity<>(null, HttpStatus.INTERNAL_SERVER_ERROR);
         }
-        newVolunteerType =volunteerTypeRepository.save(volunteerType);
-        return new ResponseEntity<>(newVolunteerType, HttpStatus.CREATED);
     }
 
     @DeleteMapping("/deleteVolunteerType/{id}")
-    public ResponseEntity deleteVolunteerType(@PathVariable Long id){
-        VolunteerType newVolunteerType = volunteerTypeRepository.findById(id).orElse(null);
-        if(newVolunteerType ==null)
-            return new ResponseEntity<>(null, HttpStatus.NOT_FOUND);
-        volunteerTypeRepository.deleteById(id);
-        return new ResponseEntity<>(null, HttpStatus.NO_CONTENT);
+    public ResponseEntity<Void> deleteVolunteerType(@PathVariable Long id) {
+        try {
+            VolunteerType existingVolunteerType = volunteerTypeRepository.findById(id).orElse(null);
+            if (existingVolunteerType == null) {
+                return new ResponseEntity<>(null, HttpStatus.NOT_FOUND);
+            }
+            volunteerTypeRepository.deleteById(id);
+            return new ResponseEntity<>(null, HttpStatus.NO_CONTENT);
+        } catch (Exception e) {
+            return new ResponseEntity<>(null, HttpStatus.INTERNAL_SERVER_ERROR);
+        }
     }
 }

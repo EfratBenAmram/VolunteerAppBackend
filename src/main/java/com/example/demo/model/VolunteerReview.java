@@ -1,13 +1,10 @@
 package com.example.demo.model;
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonIdentityInfo;
 import com.fasterxml.jackson.annotation.ObjectIdGenerators;
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.Id;
-import jakarta.persistence.ManyToOne;
+import jakarta.persistence.*;
 
 @Entity
-@JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property = "reviewId")
 public class VolunteerReview {
     @Id
     @GeneratedValue
@@ -17,6 +14,7 @@ public class VolunteerReview {
     private Organization organization;
 
     @ManyToOne
+    @JsonBackReference
     private Volunteer volunteer;
 
     private String comment;

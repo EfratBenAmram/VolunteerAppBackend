@@ -1,5 +1,12 @@
 package com.example.demo.model;
-import jakarta.persistence.*;
+
+import jakarta.persistence.EnumType;
+import jakarta.persistence.Enumerated;
+import jakarta.persistence.ManyToMany;
+import jakarta.persistence.MappedSuperclass;
+
+import java.util.HashSet;
+import java.util.Set;
 
 @MappedSuperclass
 public abstract class User {
@@ -7,6 +14,12 @@ public abstract class User {
     private String email;
     private String password;
     private String phone;
+
+    @Enumerated(EnumType.STRING)
+    private Region region;
+
+    @ManyToMany
+    private Set<Role> roles = new HashSet<>();
 
     public String getPhone() {
         return phone;
@@ -16,23 +29,20 @@ public abstract class User {
         this.phone = phone;
     }
 
-    @Enumerated(EnumType.STRING)
-    private Region region;
-
-    public Region getRegion() {
-        return region;
-    }
-
-    public void setRegion(Region region) {
-        this.region = region;
-    }
-
     public String getName() {
         return name;
     }
 
     public void setName(String name) {
         this.name = name;
+    }
+
+    public Set<Role> getRoles() {
+        return roles;
+    }
+
+    public void setRoles(Set<Role> roles) {
+        this.roles = roles;
     }
 
     public String getEmail() {
@@ -49,5 +59,13 @@ public abstract class User {
 
     public void setPassword(String password) {
         this.password = password;
+    }
+
+    public Region getRegion() {
+        return region;
+    }
+
+    public void setRegion(Region region) {
+        this.region = region;
     }
 }

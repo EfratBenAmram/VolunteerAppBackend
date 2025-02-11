@@ -20,12 +20,16 @@ public class VolunteerInvitation {
     private Organization organization;
 
     private LocalDateTime invitationDate;
-    private LocalDateTime responseTime;
     private LocalDateTime requestTime;
 
     private String address;//כתובת בה נערכת ההתנדבות
     private String activityDetails;//מידע נוסף על הפעילות
     private String requirements;//דרישות עבור ההתנדבות
+
+    private boolean reviewInd;
+
+    @ManyToOne
+    private VolunteerRequest volunteerRequest;
 
     @ManyToOne
     private VolunteerType volunteerType;//סוג ההתנדבות
@@ -38,30 +42,6 @@ public class VolunteerInvitation {
         ACCEPTED,
         REJECTED,
         COMPLETED
-    }
-
-    public LocalDateTime getInvitationDate() {
-        return invitationDate;
-    }
-
-    public void setInvitationDate(LocalDateTime invitationDate) {
-        this.invitationDate = invitationDate;
-    }
-
-    public LocalDateTime getResponseTime() {
-        return responseTime;
-    }
-
-    public void setResponseTime(LocalDateTime responseTime) {
-        this.responseTime = responseTime;
-    }
-
-    public LocalDateTime getRequestTime() {
-        return requestTime;
-    }
-
-    public void setRequestTime(LocalDateTime requestTime) {
-        this.requestTime = requestTime;
     }
 
     public Long getInvitationId() {
@@ -88,6 +68,22 @@ public class VolunteerInvitation {
         this.organization = organization;
     }
 
+    public LocalDateTime getInvitationDate() {
+        return invitationDate;
+    }
+
+    public void setInvitationDate(LocalDateTime invitationDate) {
+        this.invitationDate = invitationDate;
+    }
+
+    public LocalDateTime getRequestTime() {
+        return requestTime;
+    }
+
+    public void setRequestTime(LocalDateTime requestTime) {
+        this.requestTime = requestTime;
+    }
+
     public String getAddress() {
         return address;
     }
@@ -112,12 +108,20 @@ public class VolunteerInvitation {
         this.requirements = requirements;
     }
 
-    public InvitationStatus getStatus() {
-        return status;
+    public boolean isReviewInd() {
+        return reviewInd;
     }
 
-    public void setStatus(InvitationStatus status) {
-        this.status = status;
+    public void setReviewInd(boolean reviewInd) {
+        this.reviewInd = reviewInd;
+    }
+
+    public VolunteerRequest getVolunteerRequest() {
+        return volunteerRequest;
+    }
+
+    public void setVolunteerRequest(VolunteerRequest volunteerRequest) {
+        this.volunteerRequest = volunteerRequest;
     }
 
     public VolunteerType getVolunteerType() {
@@ -126,5 +130,13 @@ public class VolunteerInvitation {
 
     public void setVolunteerType(VolunteerType volunteerType) {
         this.volunteerType = volunteerType;
+    }
+
+    public InvitationStatus getStatus() {
+        return status;
+    }
+
+    public void setStatus(InvitationStatus status) {
+        this.status = status;
     }
 }

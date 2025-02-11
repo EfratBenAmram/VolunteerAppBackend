@@ -7,7 +7,6 @@ import java.util.List;
 public class OrganizationDTO extends User {
     private Long organizationId;
     private String orgGoals;
-    private HashMap<String, String> recommendationPhones;
     private byte[] image;
     private String imageOrg;
 
@@ -27,13 +26,6 @@ public class OrganizationDTO extends User {
         this.orgGoals = orgGoals;
     }
 
-    public HashMap<String, String> getRecommendationPhones() {
-        return recommendationPhones;
-    }
-
-    public void setRecommendationPhones(HashMap<String, String> recommendationPhones) {
-        this.recommendationPhones = recommendationPhones;
-    }
 //    @JsonIgnore
 //    @OneToMany(mappedBy = "organization")
 //    private Set<VolunteerReview> VolunteerReview = new HashSet<>();

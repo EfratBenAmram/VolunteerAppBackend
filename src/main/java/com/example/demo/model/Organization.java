@@ -1,6 +1,8 @@
 package com.example.demo.model;
 import jakarta.persistence.*;
 import java.util.HashMap;
+import java.util.HashSet;
+import java.util.Set;
 
 @Entity
 public class Organization extends User {
@@ -9,8 +11,15 @@ public class Organization extends User {
     private Long organizationId;
     private String orgGoals;
     private String imageOrg;
+    private boolean isConnect;
 
-    private HashMap<String, String> recommendationPhones;
+    public boolean isConnect() {
+        return isConnect;
+    }
+
+    public void setConnect(boolean connect) {
+        isConnect = connect;
+    }
 
     public Long getOrganizationId() {
         return organizationId;
@@ -36,11 +45,4 @@ public class Organization extends User {
         this.orgGoals = orgGoals;
     }
 
-    public HashMap<String, String> getRecommendationPhones() {
-        return recommendationPhones;
-    }
-
-    public void setRecommendationPhones(HashMap<String, String> recommendationPhones) {
-        this.recommendationPhones = recommendationPhones;
-    }
 }

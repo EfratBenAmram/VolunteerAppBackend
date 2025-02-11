@@ -1,6 +1,8 @@
 package com.example.demo.model;
+
 import com.fasterxml.jackson.annotation.JsonIdentityInfo;
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 import jakarta.persistence.*;
 import java.time.LocalDate;
@@ -8,8 +10,8 @@ import java.util.HashSet;
 import java.util.Set;
 
 @Entity
-@JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property = "volunteerId")
 public class Volunteer extends User {
+
     @Id
     @GeneratedValue
     private Long volunteerId;
@@ -20,21 +22,15 @@ public class Volunteer extends User {
     private boolean experience;
     private int amountVolunteers;
     private String imageVol;
+    private String city;
 
-    @JsonIgnore
+    @JsonManagedReference
     @OneToMany(mappedBy = "volunteer")
     private Set<VolunteerReview> VolunteerReview = new HashSet<>();
 
+    @JsonManagedReference
     @OneToMany(mappedBy = "volunteer")
     private Set<VolunteerRequest> volunteerRequests = new HashSet<>();
-
-    public Set<VolunteerRequest> getVolunteerRequests() {
-        return volunteerRequests;
-    }
-
-    public void setVolunteerRequests(Set<VolunteerRequest> volunteerRequests) {
-        this.volunteerRequests = volunteerRequests;
-    }
 
     public Long getVolunteerId() {
         return volunteerId;
@@ -52,20 +48,12 @@ public class Volunteer extends User {
         this.role = role;
     }
 
-    public boolean getExperience() {
-        return experience;
+    public String getGender() {
+        return gender;
     }
 
-    public void setExperience(boolean experience) {
-        this.experience = experience;
-    }
-
-    public Set<VolunteerReview> getVolunteerReview() {
-        return VolunteerReview;
-    }
-
-    public void setVolunteerReview(Set<VolunteerReview> volunteerReview) {
-        VolunteerReview = volunteerReview;
+    public void setGender(String gender) {
+        this.gender = gender;
     }
 
     public LocalDate getBirth() {
@@ -76,16 +64,12 @@ public class Volunteer extends User {
         this.birth = birth;
     }
 
-    public String getGender() {
-        return gender;
-    }
-
-    public void setGender(String gender) {
-        this.gender = gender;
-    }
-
     public boolean isExperience() {
         return experience;
+    }
+
+    public void setExperience(boolean experience) {
+        this.experience = experience;
     }
 
     public int getAmountVolunteers() {
@@ -102,5 +86,29 @@ public class Volunteer extends User {
 
     public void setImageVol(String imageVol) {
         this.imageVol = imageVol;
+    }
+
+    public String getCity() {
+        return city;
+    }
+
+    public void setCity(String city) {
+        this.city = city;
+    }
+
+    public Set<com.example.demo.model.VolunteerReview> getVolunteerReview() {
+        return VolunteerReview;
+    }
+
+    public void setVolunteerReview(Set<com.example.demo.model.VolunteerReview> volunteerReview) {
+        VolunteerReview = volunteerReview;
+    }
+
+    public Set<VolunteerRequest> getVolunteerRequests() {
+        return volunteerRequests;
+    }
+
+    public void setVolunteerRequests(Set<VolunteerRequest> volunteerRequests) {
+        this.volunteerRequests = volunteerRequests;
     }
 }

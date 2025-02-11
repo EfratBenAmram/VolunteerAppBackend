@@ -22,7 +22,6 @@ public interface MapStruct {
        VolunteerDTO volunteerDTO=new VolunteerDTO();
        volunteerDTO.setEmail(volunteer.getEmail());
        volunteerDTO.setName(volunteer.getName());
-       volunteerDTO.setPassword(null);
        volunteerDTO.setPhone(volunteer.getPhone());
        volunteerDTO.setRegion(volunteer.getRegion());
        volunteerDTO.setVolunteerId(volunteer.getVolunteerId());
@@ -31,7 +30,7 @@ public interface MapStruct {
        volunteerDTO.setPassword(volunteer.getPassword());
        volunteerDTO.setGender(volunteer.getGender());
        volunteerDTO.setBirth(volunteer.getBirth());
-       volunteerDTO.setExperience(volunteer.getExperience());
+       volunteerDTO.setExperience(volunteer.isExperience());
        volunteerDTO.setAmountVolunteers(volunteer.getAmountVolunteers());
        volunteerDTO.setVolunteerReview(volunteer.getVolunteerReview());
        volunteerDTO.setImageVol(volunteer.getImageVol());
@@ -46,16 +45,12 @@ public interface MapStruct {
        organizationDTO.setOrganizationId(organization.getOrganizationId());
        organizationDTO.setEmail(organization.getEmail());
        organizationDTO.setName(organization.getName());
-       organizationDTO.setPassword(null);
        organizationDTO.setPhone(organization.getPhone());
        organizationDTO.setRegion(organization.getRegion());
        organizationDTO.setOrgGoals(organization.getOrgGoals());
-       organizationDTO.setRecommendationPhones(organization.getRecommendationPhones());
        organizationDTO.setImageOrg(organization.getImageOrg());
        Path file = Paths.get(organization.getImageOrg());
        organizationDTO.setImage(Files.readAllBytes(file));
        return organizationDTO;
     }
-
-
 }

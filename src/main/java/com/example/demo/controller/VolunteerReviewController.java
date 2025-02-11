@@ -12,47 +12,75 @@ import java.util.List;
 @RequestMapping("api/volunteerReview")
 @CrossOrigin
 public class VolunteerReviewController {
-    private VolunteerReviewRepository volunteerReviewRepository;
+    private final VolunteerReviewRepository volunteerReviewRepository;
 
     public VolunteerReviewController(VolunteerReviewRepository volunteerReviewRepository) {
         this.volunteerReviewRepository = volunteerReviewRepository;
     }
+
     @GetMapping("/volunteerReview")
     public ResponseEntity<List<VolunteerReview>> getVolunteerReview() {
-        return new ResponseEntity<>(volunteerReviewRepository.findAll(), HttpStatus.OK);
+        try {
+            List<VolunteerReview> reviews = volunteerReviewRepository.findAll();
+            return new ResponseEntity<>(reviews, HttpStatus.OK);
+        } catch (Exception e) {
+            return new ResponseEntity<>(null, HttpStatus.INTERNAL_SERVER_ERROR);
+        }
     }
+
     @GetMapping("/volunteerReviewById/{id}")
-    public ResponseEntity<VolunteerReview> getVolunteerReviewByID(@PathVariable Long id){
-        VolunteerReview volunteerReview = volunteerReviewRepository.findById(id).orElse(null);
-        if(volunteerReview == null)
-            return new ResponseEntity<>(null, HttpStatus.NOT_FOUND);
-        return new ResponseEntity<>(volunteerReview, HttpStatus.OK);
+    public ResponseEntity<VolunteerReview> getVolunteerReviewByID(@PathVariable Long id) {
+        try {
+            VolunteerReview volunteerReview = volunteerReviewRepository.findById(id).orElse(null);
+            if (volunteerReview == null) {
+                return new ResponseEntity<>(null, HttpStatus.NOT_FOUND);
+            }
+            return new ResponseEntity<>(volunteerReview, HttpStatus.OK);
+        } catch (Exception e) {
+            return new ResponseEntity<>(null, HttpStatus.INTERNAL_SERVER_ERROR);
+        }
     }
 
     @PostMapping("/addVolunteerReview")
     public ResponseEntity<VolunteerReview> addVolunteerReview(@RequestBody VolunteerReview volunteerReview) {
-        VolunteerReview newVolunteerReview = volunteerReviewRepository.save(volunteerReview);
-        return new ResponseEntity<>(newVolunteerReview, HttpStatus.CREATED);
+        try {
+            VolunteerReview newVolunteerReview = volunteerReviewRepository.save(volunteerReview);
+            return new ResponseEntity<>(newVolunteerReview, HttpStatus.CREATED);
+        } catch (Exception e) {
+            return new ResponseEntity<>(null, HttpStatus.INTERNAL_SERVER_ERROR);
+        }
     }
 
     @PutMapping("/updateVolunteerReview/{id}")
-    public ResponseEntity<VolunteerReview> updateVolunteerReview( @PathVariable Long id,@RequestBody VolunteerReview volunteerReview) {
-        VolunteerReview newVolunteerReview = volunteerReviewRepository.findById(id).orElse(null);
-        if(newVolunteerReview ==null)
-            return new ResponseEntity<>(null, HttpStatus.NOT_FOUND);
-        if(volunteerReview.getReviewId() != id){
-            return new ResponseEntity<>(volunteerReview, HttpStatus.CONFLICT);
+    public ResponseEntity<VolunteerReview> updateVolunteerReview(@PathVariable Long id, @RequestBody VolunteerReview volunteerReview) {
+        try {
+            VolunteerReview existingReview = volunteerReviewRepository.findById(id).orElse(null);
+            if (existingReview == null) {
+                return new ResponseEntity<>(null, HttpStatus.NOT_FOUND);
+            }
+
+            if (volunteerReview.getReviewId() != id) {
+                return new ResponseEntity<>(volunteerReview, HttpStatus.CONFLICT);
+            }
+
+            VolunteerReview updatedReview = volunteerReviewRepository.save(volunteerReview);
+            return new ResponseEntity<>(updatedReview, HttpStatus.CREATED);
+        } catch (Exception e) {
+            return new ResponseEntity<>(null, HttpStatus.INTERNAL_SERVER_ERROR);
         }
-        newVolunteerReview =volunteerReviewRepository.save(volunteerReview);
-        return new ResponseEntity<>(newVolunteerReview, HttpStatus.CREATED);
     }
 
     @DeleteMapping("/deleteVolunteerReview/{id}")
-    public ResponseEntity deleteVolunteerReview(@PathVariable Long id){
-        VolunteerReview newVolunteerReview = volunteerReviewRepository.findById(id).orElse(null);
-        if(newVolunteerReview ==null)
-            return new ResponseEntity<>(null, HttpStatus.NOT_FOUND);
-        volunteerReviewRepository.deleteById(id);
-        return new ResponseEntity<>(null, HttpStatus.NO_CONTENT);
+    public ResponseEntity<Void> deleteVolunteerReview(@PathVariable Long id) {
+        try {
+            VolunteerReview existingReview = volunteerReviewRepository.findById(id).orElse(null);
+            if (existingReview == null) {
+                return new ResponseEntity<>(null, HttpStatus.NOT_FOUND);
+            }
+            volunteerReviewRepository.deleteById(id);
+            return new ResponseEntity<>(null, HttpStatus.NO_CONTENT);
+        } catch (Exception e) {
+            return new ResponseEntity<>(null, HttpStatus.INTERNAL_SERVER_ERROR);
+        }
     }
 }
